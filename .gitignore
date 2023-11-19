@@ -1,0 +1,5 @@
+# remove .out 
+*.out
+ 
+# remove .swp 
+*.swp
