@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		fprintf(stderr, "usage: a.out <IPaddress>");
+		fprintf(stderr, "usage: a.out <IPaddress>\n");
 		exit(EXIT_FAILURE);
 	}
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -24,8 +24,8 @@ int main(int argc, char **argv)
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_port = htons(1030);
 	if (inet_pton(AF_INET, argv[1], &(servaddr.sin_addr)) <= 0)
-		err_quit("connect error");
-	if (connect(sockfd, (SA *) &servaddr, sizeof(servaddr.sin_addr)) < 0)
+		err_quit("inet error");
+	if (connect(sockfd, (SA *) &servaddr, sizeof(servaddr)) < 0)
 		err_quit("connect error");
 	while ((n = read(sockfd, recvline, MAXLINE)) > 0) {
 		recvline[n] = '\0'; /* null terminate */

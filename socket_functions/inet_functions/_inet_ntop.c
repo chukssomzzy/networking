@@ -1,9 +1,5 @@
 # include "unp.h"
 # include <errno.h>
-# include <netinet/in.h>
-# include <stdio.h>
-# include <string.h>
-# include <sys/types.h>
 
 
 /**
@@ -26,7 +22,7 @@ const char *_inet_ntop(int family, const void *addrptr, char *strptr,
 		p = (u_char *) addrptr;
 
 		snprintf(temp, INET_ADDRSTRLEN, "%d.%d.%d.%d", p[0], p[1], p[2], p[3]);
-		if (len < INET_ADDRSTRLEN)
+		if (len >= INET_ADDRSTRLEN)
 		{
 			errno = ENOSPC;
 			return (NULL);
