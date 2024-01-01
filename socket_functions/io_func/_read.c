@@ -16,7 +16,7 @@ int _read(int fd, char *ptr)
 
 	while (rd <= 0)
 	{
-		rd = read (fd, buf, sizeof(buf));
+		rd = read(fd, buf, sizeof(buf));
 		if (rd < 0)
 		{
 			if (errno == EINTR)
@@ -26,7 +26,7 @@ int _read(int fd, char *ptr)
 			}
 			else
 				return (-1);
-		} else
+		} else if (rd == 0)
 			return (0);
 		bufptr = buf;
 	}

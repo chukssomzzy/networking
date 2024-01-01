@@ -23,6 +23,8 @@ typedef struct sockaddr_in sockaddr_in_t;
 /** definitions **/
 # define MAXLINE 4096
 # define LISTENQ 1024
+# define SERV_PORT 9877
+# define MAXSOCKLEN 104
 
 /** Prototypes **/
 void err_quit(const char *);
@@ -56,4 +58,5 @@ ssize_t writen(int fd, void *buf, size_t nbytes);
 /** readline from socket stream **/
 ssize_t readline(int fd, void *buf, size_t maxbytes);
 int _read(int , char *);
+void Fputs(const char *, FILE *);
 # endif
