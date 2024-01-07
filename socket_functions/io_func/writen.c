@@ -4,17 +4,17 @@
  * writen - write at most n bytes to a socket stream
  * @fd: The file descriptor of the socket stream
  * @buff: Buff to write bytes from
- * @nbytes number of bytes to write
+ * @nbytes: number of bytes to write
  * Return: the number pf byte wrote to socket or -1 on error
  */
 
 ssize_t writen(int fd, void *buff, size_t nbytes)
 {
 	size_t n_left;
-	size_t n_writen;
+	ssize_t n_writen;
 	char  *ptr;
 
-    n_left = nbytes;
+	n_left = nbytes;
 	n_writen = 0;
 	ptr = buff;
 	while (n_left > 0)

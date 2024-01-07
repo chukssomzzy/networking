@@ -4,15 +4,15 @@
 /**
  * readn - Read at most n bytes from buffer
  * @fd: file descriptor to socket stream
- * @buff - pointer to buffer to store bytes
- * @nbytes - number of nytes to copy to buffer
+ * @buff: pointer to buffer to store bytes
+ * @nbytes: number of nytes to copy to buffer
  * Return: number of bytes copied
  */
 
 ssize_t readn(int fd, void *buff, size_t nbytes)
 {
 	size_t n_left;
-	size_t n_read;
+	ssize_t n_read;
 	char *ptr;
 
 	n_left = nbytes;
