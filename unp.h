@@ -5,6 +5,7 @@
 # include <sys/socket.h>
 # include <arpa/inet.h>
 # include <strings.h>
+# include <string.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <netinet/in.h>
