@@ -8,7 +8,7 @@ static void str_echo(uint8_t);
  * Return: 1 success 0 failure
  */
 
-int main(int __attribute__((unused))argc, char **__attribute__((unused))argv)
+int main(int __attribute__((unused))argc, char __attribute__((unused))**argv)
 {
 	uint8_t lsfd, connfd;
 	struct sockaddr_in sa, ca;
