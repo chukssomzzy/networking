@@ -35,6 +35,7 @@ int main(int __attribute__((unused))argc, char __attribute__((unused))**argv)
 			close(lsfd);
 			str_echo(connfd);
 			close(connfd);
+			printf("About to exist");
 			exit(0);
 		}
 	}
