@@ -1,7 +1,4 @@
-#include <stdio.h>
-# include <sys/types.h>
-# include <sys/socket.h>
-# include <stdlib.h>
+# include "unp.h"
 
 
 /**
@@ -16,11 +13,14 @@ int Accept(int listenfd, struct sockaddr *servaddr, socklen_t *addrlen)
 {
 	int fd;
 
-	fd = accept(listenfd, (struct sockaddr *) servaddr, addrlen);
-	if (fd < 0)
-	{
-		perror("accept error");
-		exit(EXIT_FAILURE);
-	}
+	while ((fd = accept(listenfd, (struct sockaddr *) servaddr, addrlen)) < 0)
+		if (errno == EINTR)
+		{
+			continue;
+		} else
+		{
+			perror("accept error");
+			exit(EXIT_FAILURE);
+		}
 	return (fd);
 }
