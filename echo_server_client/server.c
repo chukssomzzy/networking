@@ -1,6 +1,6 @@
 # include "unp.h"
 static void str_echo(uint8_t);
-
+static void sig_chld(int);
 /**
  * main - echo server
  * @argc: Number of arguments in argument vector
@@ -24,7 +24,7 @@ int main(int __attribute__((unused))argc, char __attribute__((unused))**argv)
 	Bind(lsfd, (struct sockaddr *) &sa, sizeof(sa));
 
 	Listen(lsfd, LISTENQ);
-
+	Signal(SIGCHLD, sig_chld);
 	for ( ;; )
 	{
 		connfd = Accept(lsfd, (struct sockaddr *) &ca, &calen);
@@ -58,4 +58,18 @@ void str_echo(uint8_t connfd)
 		if (len < 0)
 			return;
 	}
+}
+
+/**
+ * sig_chld - wait for a child to terminate
+ * @signo: signal received
+ */
+
+void sig_chld(int __attribute__((unused)) signo)
+{
+	pid_t pid;
+	int stat;
+
+	pid = wait(&stat);
+	printf("Child %i terminated", pid);
 }
