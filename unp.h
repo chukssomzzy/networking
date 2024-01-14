@@ -12,9 +12,12 @@
 # include <unistd.h>
 # include <unistd.h>
 # include <errno.h>
+# include <signal.h>
+# include <sys/wait.h>
 
 typedef struct sockaddr SA;
 typedef struct sockaddr_in sockaddr_in_t;
+typedef void Sigfunc(int);
 /**
  * sockaddr_in - defines ip address and port number
  * @port: int of port number where to attach the server
@@ -60,4 +63,5 @@ ssize_t writen(int fd, void *buf, size_t nbytes);
 ssize_t readline(int fd, void *buf, size_t maxbytes);
 int _read(int , char *);
 void Fputs(const char *, FILE *);
+Sigfunc *Signal(int, Sigfunc *);
 # endif

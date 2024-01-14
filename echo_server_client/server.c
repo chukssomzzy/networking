@@ -71,5 +71,5 @@ void sig_chld(int __attribute__((unused)) signo)
 	int stat;
 
 	pid = wait(&stat);
-	printf("Child %i terminated", pid);
+	printf("Child %i terminated\n", pid);
 }
