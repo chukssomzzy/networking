@@ -14,12 +14,16 @@ int main(int argc, char **argv)
 {
 	uint8_t connfd;
 	struct sockaddr_in sa;
+	int i = 0;
 
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: %s <ip_address>\n", argv[0]);
 		exit(1);
 	}
+
+	for (i = 0; i < 5; i++)
+	{
 	connfd = Socket(AF_INET, SOCK_STREAM, 0);
 
 	bzero(&sa, sizeof(sa));
@@ -29,6 +33,7 @@ int main(int argc, char **argv)
 	inet_pton(sa.sin_family, argv[1], &(sa.sin_addr));
 
 	Connect(connfd, (struct sockaddr *) &sa, sizeof(sa));
+	}
 
 	cli_echo(stdin, connfd);
 	exit(0);
