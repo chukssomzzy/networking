@@ -12,9 +12,8 @@ static void cli_echo(FILE *, uint8_t);
 
 int main(int argc, char **argv)
 {
-	uint8_t connfd;
+	uint8_t connfd[5], i;
 	struct sockaddr_in sa;
-	int i = 0;
 
 	if (argc != 2)
 	{
@@ -24,7 +23,7 @@ int main(int argc, char **argv)
 
 	for (i = 0; i < 5; i++)
 	{
-	connfd = Socket(AF_INET, SOCK_STREAM, 0);
+	connfd[i] = Socket(AF_INET, SOCK_STREAM, 0);
 
 	bzero(&sa, sizeof(sa));
 
@@ -32,10 +31,10 @@ int main(int argc, char **argv)
 	sa.sin_port = htons(SERV_PORT);
 	inet_pton(sa.sin_family, argv[1], &(sa.sin_addr));
 
-	Connect(connfd, (struct sockaddr *) &sa, sizeof(sa));
+	Connect(connfd[i], (struct sockaddr *) &sa, sizeof(sa));
 	}
 
-	cli_echo(stdin, connfd);
+	cli_echo(stdin, connfd[0]);
 	exit(0);
 }
 
