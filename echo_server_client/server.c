@@ -70,6 +70,6 @@ void sig_chld(int __attribute__((unused)) signo)
 	pid_t pid;
 	int stat;
 
-	pid = wait(&stat);
-	printf("Child %i terminated\n", pid);
+	while ((pid = waitpid(-1, &stat, WNOHANG)) > 0)
+		printf("Child %i terminated\n", pid);
 }
