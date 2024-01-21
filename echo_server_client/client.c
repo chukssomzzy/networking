@@ -53,6 +53,7 @@ void cli_echo(FILE *stdin, uint8_t connfd)
 		if (len <= 0)
 			return;
 		len = readline(connfd, buf, MAXLINE);
+		printf("%i\n", len);
 		if (len <= 0)
 			return;
 		Fputs(buf, stdout);
