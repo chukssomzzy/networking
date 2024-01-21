@@ -1,6 +1,8 @@
 # include "unp.h"
+# include <sys/resource.h>
 static void str_echo(uint8_t);
 static void sig_chld(int);
+static void chld_hand(int);
 /**
  * main - echo server
  * @argc: Number of arguments in argument vector
@@ -27,6 +29,7 @@ int main(int __attribute__((unused))argc, char __attribute__((unused))**argv)
 	Signal(SIGCHLD, sig_chld);
 	for ( ;; )
 	{
+		Signal(SIGTERM, chld_hand);
 		connfd = Accept(lsfd, (struct sockaddr *) &ca, &calen);
 		printf("Connected to client on %s\n",
 				sock_ntop((struct sockaddr *) &ca, calen));
@@ -72,4 +75,21 @@ void sig_chld(int __attribute__((unused)) signo)
 
 	while ((pid = waitpid(-1, &stat, WNOHANG)) > 0)
 		printf("Child %i terminated\n", pid);
+}
+
+/**
+ * chld_hand - closes all child file descriptor
+ * @signo: Signal received
+ */
+
+void chld_hand(int __attribute__((unused)) signo)
+{
+	struct rlimit *lim = NULL;
+	uint16_t fd;
+
+	if (getrlimit(RLIMIT_NOFILE, lim) < 0)
+		err_quit("getrlimit error");
+
+	for (fd = 0; fd < lim->rlim_cur; fd++)
+		close(fd);
 }
